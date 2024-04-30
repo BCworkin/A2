@@ -12,13 +12,24 @@ public class DSEList implements List {
 	private Node tail;
 
 	public DSEList() {
-		
 	}
+	
 	public DSEList(Node head_) {
+		head_ = head;
 	}
 	
 	//Takes a list then adds each element into a new list
 	public DSEList(DSEList other) { // Copy constructor. 
+		if (other.head == null) {
+			this.head = null; 
+		} else {
+			Node othernode = this.head;
+			Node copyNode = new Node(othernode);
+			
+			this.head = copyNode;
+			
+		}
+		
 	}
 
 	//remove the String at the parameter's index
