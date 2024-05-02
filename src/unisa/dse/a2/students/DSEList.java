@@ -1,6 +1,7 @@
 package unisa.dse.a2.students;
 
 import unisa.dse.a2.interfaces.List;
+import java.util.*;
 
 /**
  * @author simont
@@ -8,14 +9,15 @@ import unisa.dse.a2.interfaces.List;
  */
 public class DSEList implements List {
 	
-	public Node head;
-	private Node tail;
+	public Node head = null;
+	private Node tail =  null;
+	private int size = 0;
 
 	public DSEList() {
 	}
 	
 	public DSEList(Node head_) {
-		head_ = head;
+		head = head_;
 	}
 	
 	//Takes a list then adds each element into a new list
@@ -23,18 +25,15 @@ public class DSEList implements List {
 		if (other.head == null) {
 			this.head = null; 
 		} else {
-			Node othernode = this.head;
+			Node othernode = other.head;
 			Node copyNode = new Node(othernode);
 			
 			this.head = copyNode;
-			
 		}
-		
 	}
 
 	//remove the String at the parameter's index
 	public String remove(int index) {
-
 	}
 
 	//returns the index of the String parameter 
@@ -43,6 +42,12 @@ public class DSEList implements List {
 	
 	//returns String at parameter's index
 	public String get(int index) {
+		if(index  < 0 || index >= size) {
+			throw new IndexOutOfBoundsException(Integer.toString(index));
+		}
+		Node<String> node = getNode(index);
+		return node.data;
+		
 	}
 
 	//checks if there is a list
@@ -60,10 +65,15 @@ public class DSEList implements List {
 
 	//add the parameter String at of the end of the list
 	public boolean add(String obj) {
+		add(size, obj);
+		return true;
+		
 	}
 
 	//add String at parameter's index
 	public boolean add(int index, String obj) {
+		listIterator(index).add(obj);
+		}
 	}
 
 	//searches list for parameter's String return true if found
