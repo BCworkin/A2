@@ -12,6 +12,8 @@ public class DSEList implements List {
 	public Node head = null;
 	private Node tail =  null;
 	private int size = 0;
+	
+	public ListIterator<String> listIterator;
 
 	public DSEList() {
 	}
@@ -26,18 +28,31 @@ public class DSEList implements List {
 			this.head = null; 
 		} else {
 			Node othernode = other.head;
-			Node copyNode = new Node(othernode);
-			
-			this.head = copyNode;
+			this.head = othernode;
+			this.tail = other.tail;
+			this.size = other.size;
 		}
 	}
 
 	//remove the String at the parameter's index
 	public String remove(int index) {
+		//debug
+		return listIterator.remove(index);
 	}
 
 	//returns the index of the String parameter 
 	public int indexOf(String obj) {
+		//make changes
+	    int index = 0;
+	    Node current = head;
+	    while (current != null) {
+	        if (current.data.equals(obj)) {
+	            return index;
+	        }
+	        current = current.next;
+	        index++;
+	    }
+	    return -1; 
 	}
 	
 	//returns String at parameter's index
@@ -45,8 +60,7 @@ public class DSEList implements List {
 		if(index  < 0 || index >= size) {
 			throw new IndexOutOfBoundsException(Integer.toString(index));
 		}
-		Node<String> node = getNode(index);
-		return node.data;
+		return listIterator(index).next();
 		
 	}
 
@@ -56,6 +70,7 @@ public class DSEList implements List {
 
 	//return the size of the list
 	public int size() {
+		return size;
 	}
 	
 	//Take each element of the list a writes them to a string 
@@ -72,8 +87,9 @@ public class DSEList implements List {
 
 	//add String at parameter's index
 	public boolean add(int index, String obj) {
+		//make changes
 		listIterator(index).add(obj);
-		}
+		return true;
 	}
 
 	//searches list for parameter's String return true if found
