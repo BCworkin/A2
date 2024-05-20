@@ -17,7 +17,7 @@ public class Node {
 	public Node next;
 	public Node prev;
 	
-	private String t;
+	public String t;
 
 	public Node(Node next, Node prev, String token) {
 		this.next = next;

@@ -11,8 +11,9 @@ import java.util.*;
 public class DSEList implements List {
 	
 	public Node head = null;
-	private Node tail =  null;
+	public Node tail =  null;
 	private int size;
+	
 	
 	//done
 	public DSEList() {
@@ -34,12 +35,22 @@ public class DSEList implements List {
 
 	        Node current = other.head;
 	        while (current != null) {
+	            this.add(current.t);
 	            current = current.next;
 	        }
 	}
 
 	//remove the String at the parameter's index
 	public String remove(int index) {
+		if(index  < 0 || index >= size) {
+			throw new IndexOutOfBoundsException(Integer.toString(index));
+		} 
+		
+		Node current = head;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+		return current.t;
 	}
 
 	//returns the index of the String parameter 
@@ -51,16 +62,23 @@ public class DSEList implements List {
 	public String get(int index) {
 		if(index  < 0 || index >= size) {
 			throw new IndexOutOfBoundsException(Integer.toString(index));
-		} else {
-			return 
-		}
+		} 
 		
+		Node current = head;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+		return current.t;
 	}
 
 	//checks if there is a list
 	public boolean isEmpty() {
-		size = 0;
-		return true;
+		Node current = head;
+		if (current == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	//return the size of the list
@@ -72,7 +90,18 @@ public class DSEList implements List {
 	//Take each element of the list a writes them to a string 
 	@Override
 	public String toString() {
-	}
+		String output = "";
+		
+		Node current = head;
+		while (current != null) {
+			output = output.concat(current.t);
+			if (current.next != null) {
+                output = output.concat(",");
+            }
+            current = current.next;
+        }
+        return output;
+    }
 
 	//add the parameter String at of the end of the list
 	public boolean add(String obj) {
@@ -137,6 +166,7 @@ public class DSEList implements List {
 
 	//searches list for parameter's String return true if found
 	public boolean contains(String obj) {
+
 	}
 
 	//removes the parameter's String form the list
