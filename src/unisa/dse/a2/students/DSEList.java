@@ -54,24 +54,38 @@ public class DSEList implements List {
 	}
 
 	//returns the index of the String parameter 
+	//done
 	public int indexOf(String obj) {
-
+		
+		Node current = head;
+		
+		int index = 0;
+		
+		while (current != null) {
+			if (current.t.equals(obj)) {
+				return index;
+			}
+			current = current.next;
+			index++;
+		}
+		return -1;
 	}
 	
 	//returns String at parameter's index
 	public String get(int index) {
 		if(index  < 0 || index >= size) {
 			throw new IndexOutOfBoundsException(Integer.toString(index));
-		} 
-		
-		Node current = head;
-		for (int i = 0; i < index; i++) {
-			current = current.next;
+		} else {
+			Node current = head;
+			for (int i = 0; i < index; i++) {
+				current = current.next;
+			}
+			return current.t;
 		}
-		return current.t;
-	}
+	
 
 	//checks if there is a list
+	//done
 	public boolean isEmpty() {
 		Node current = head;
 		if (current == null) {
@@ -88,18 +102,21 @@ public class DSEList implements List {
 	}
 	
 	//Take each element of the list a writes them to a string 
+	//done
 	@Override
 	public String toString() {
+		
 		String output = "";
 		
 		Node current = head;
 		while (current != null) {
 			output = output.concat(current.t);
 			if (current.next != null) {
-                output = output.concat(",");
-            }
+                output = output.concat(" ");
+			}
             current = current.next;
-        }
+		}
+        output = output.concat("");
         return output;
     }
 
