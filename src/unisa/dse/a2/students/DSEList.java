@@ -35,23 +35,49 @@ public class DSEList implements List {
 
 	        Node current = other.head;
 	        while (current != null) {
-	            this.add(current.t);
+	            this.add(current.getString());
 	            current = current.next;
 	        }
 	}
 
 	//remove the String at the parameter's index
 	public String remove(int index) {
+		
 		if(index  < 0 || index >= size) {
 			throw new IndexOutOfBoundsException(Integer.toString(index));
 		} 
-		
-		Node current = head;
-		for (int i = 0; i < index; i++) {
-			current = current.next;
-		}
-		return current.t;
-	}
+		String returnString = null;
+	    if (size == 1) {
+	    	returnString = head.getString();
+	        head = tail = null;
+	        } else if (index == 0) {
+	        	returnString = head.getString();
+	            head = head.next;
+	            head.prev = null;
+	        } else if (index == size - 1) {
+	            returnString = tail.getString();
+	            tail = tail.prev;
+	            tail.next = null;
+	        } else {
+	        	Node current;
+	            if (index < size / 2) {
+	                current = head;
+	                for (int i = 0; i < index; i++) {
+	                    current = current.next;
+	                }
+	            } else {
+	                current = tail;
+	                for (int i = size - 1; i > index; i--) {
+	                    current = current.prev;
+	                }
+	            }
+	            returnString = current.getString();
+	            current.prev.next = current.next;
+	            current.next.prev = current.prev;
+	        }
+	        size--;
+	        return returnString;
+	    }
 
 	//returns the index of the String parameter 
 	//done
@@ -62,7 +88,7 @@ public class DSEList implements List {
 		int index = 0;
 		
 		while (current != null) {
-			if (current.t.equals(obj)) {
+			if (current.getString().equals(obj)) {
 				return index;
 			}
 			current = current.next;
@@ -72,16 +98,16 @@ public class DSEList implements List {
 	}
 	
 	//returns String at parameter's index
-	public String get(int index) {
-		if(index  < 0 || index >= size) {
-			throw new IndexOutOfBoundsException(Integer.toString(index));
-		} else {
-			Node current = head;
-			for (int i = 0; i < index; i++) {
-				current = current.next;
-			}
-			return current.t;
-		}
+   public String get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException(Integer.toString(index));
+        }
+        current = head;
+        for (int i = 0; i < index; i++) {
+        	current = current.next;
+        }
+        return current;
+    }
 	
 
 	//checks if there is a list
@@ -110,7 +136,7 @@ public class DSEList implements List {
 		
 		Node current = head;
 		while (current != null) {
-			output = output.concat(current.t);
+			output = output.concat(current.getString());
 			if (current.next != null) {
                 output = output.concat(" ");
 			}
@@ -183,8 +209,18 @@ public class DSEList implements List {
 
 	//searches list for parameter's String return true if found
 	public boolean contains(String obj) {
+        Node current = head;
+        while (current != null) {
+            if (current.getString().equals(obj)) {
+                return true;
+              
+            } else {
+                current = current.next;
+            }
+        }
+        return false;
+    }
 
-	}
 
 	//removes the parameter's String form the list
 	public boolean remove(String obj) {
