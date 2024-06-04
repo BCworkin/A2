@@ -22,9 +22,33 @@ public class DSEList implements List {
 	//done
 	public DSEList(Node head_) {
 		this.head = head_;
-		this.tail = head_;
-		this.size = 1;
-	}
+        this.tail = getTail(head_);        
+        this.size = getSize(head_);
+    }
+
+    // method to calculate the size of the list from a given node
+	//done
+    private int getSize(Node node) {
+        int size = 0;
+        while (node != null) {
+            size++;
+            node = node.next;
+        }
+        return size;
+    }
+
+    // method to get the tail of the node
+    //done
+    private Node getTail(Node node) {
+        if (node == null) {
+            return null;
+        }
+        while (node.next != null) {
+            node = node.next;
+        }
+        return node;
+    }
+
 	
 	//Takes a list then adds each element into a new list
 	//done
@@ -98,15 +122,17 @@ public class DSEList implements List {
 	}
 	
 	//returns String at parameter's index
+	//done
    public String get(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(Integer.toString(index));
-        }
-        current = head;
+            return null;
+        } else {
+        Node current = head;
         for (int i = 0; i < index; i++) {
         	current = current.next;
         }
-        return current;
+        return current.getString();
+        }
     }
 	
 
