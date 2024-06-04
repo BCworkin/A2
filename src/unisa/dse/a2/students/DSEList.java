@@ -250,6 +250,14 @@ public class DSEList implements List {
 
 	//removes the parameter's String form the list
 	public boolean remove(String obj) {
+		Node current = head;
+		while (current.next != null) {
+			if (current.getString().equals(obj)) {
+				current = null;
+				current.next = current.next;
+				current.prev 
+			}
+		}
 	}
 	
 	@Override
