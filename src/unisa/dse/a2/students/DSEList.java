@@ -15,19 +15,16 @@ public class DSEList implements List {
 	private int size;
 	
 	
-	//done
 	public DSEList() {
 	}
 	
-	//done
 	public DSEList(Node head_) {
 		this.head = head_;
         this.tail = getTail(head_);        
         this.size = getSize(head_);
     }
 
-    // method to calculate the size of the list from a given node
-	//done
+    //method to calculate the size of the list from a given node
     private int getSize(Node node) {
         int size = 0;
         while (node != null) {
@@ -37,8 +34,7 @@ public class DSEList implements List {
         return size;
     }
 
-    // method to get the tail of the node
-    //done
+    //method to get the tail of the node
     private Node getTail(Node node) {
         if (node == null) {
             return null;
@@ -50,9 +46,8 @@ public class DSEList implements List {
     }
 
 	
-	//Takes a list then adds each element into a new list
-	//done
-	public DSEList(DSEList other) { // Copy constructor. 
+	//takes a list then adds each element into a new list
+	public DSEList(DSEList other) { 
 	       if (other == null) {
 	            return;
 	        }
@@ -104,7 +99,6 @@ public class DSEList implements List {
 	    }
 
 	//returns the index of the String parameter 
-	//done
 	public int indexOf(String obj) {
 		
 		Node current = head;
@@ -121,8 +115,7 @@ public class DSEList implements List {
 		return -1;
 	}
 	
-	//returns String at parameter's index
-	//done
+   //returns String at parameter's index
    public String get(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -137,7 +130,6 @@ public class DSEList implements List {
 	
 
 	//checks if there is a list
-	//done
 	public boolean isEmpty() {
 		Node current = head;
 		if (current == null) {
@@ -148,13 +140,11 @@ public class DSEList implements List {
 	}
 
 	//return the size of the list
-	//done
 	public int size() {
 		return size;
 	}
 	
 	//Take each element of the list a writes them to a string 
-	//done
 	@Override
 	public String toString() {
 		
@@ -251,13 +241,28 @@ public class DSEList implements List {
 	//removes the parameter's String form the list
 	public boolean remove(String obj) {
 		Node current = head;
-		while (current.next != null) {
+		while (current != null) {
 			if (current.getString().equals(obj)) {
-				current = null;
-				current.next = current.next;
-				current.prev 
-			}
-		}
+				if (current == head) {
+					head = current.next;
+					if (head != null) {
+						head.prev = null;
+					 } 
+				} else if (current == tail) {
+                    tail = current.prev;
+                    if (tail != null) {
+                        tail.next = null;
+                    }
+                } else {
+                    current.next.prev = current.prev;
+                    current.prev.next = current.next;
+                }
+
+                size--;
+                return true;
+            }
+            current = current.next;
+        } return false;
 	}
 	
 	@Override
