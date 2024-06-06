@@ -6,7 +6,7 @@ import unisa.dse.a2.interfaces.ListGeneric;
  * @author simont
  *
  */
-public class DSEListGeneric<E> implements ListGeneric {
+public class DSEListGeneric<E> implements ListGeneric<E> {
 	
 	public NodeGeneric<E> head;
 	private NodeGeneric<E> tail;
@@ -44,31 +44,35 @@ public class DSEListGeneric<E> implements ListGeneric {
 
 	
 	//Takes a list then adds each element into a new list
-	public DSEListGeneric(DSEList other) { // Copy constructor. 
+	public DSEListGeneric(DSEListGeneric<E> other) { // Copy constructor. 
 	       if (other == null) {
 	            return;
 	        }
 
-	        Node current = other.head;
+	        NodeGeneric<E> current = other.head;
 	        while (current != null) {
-	            this.add(current.getString());
+	            this.add(current.get());
 	            current = current.next;
 	        }
 	}
 
 	//remove and return the item at the parameter's index
-	public void remove(int index) {
+	public E remove(int index) {
 		if(index  < 0 || index >= size) {
 			throw new IndexOutOfBoundsException(Integer.toString(index));
 		} 
+		NodeGeneric<E> nodeToReturn;
 	    if (size == 1) {
 	        head = tail = null;
+	        nodeToReturn.get();
 	        } else if (index == 0) {
 	            head = head.next;
 	            head.prev = null;
+		        nodeToReturn.get();
 	        } else if (index == size - 1) {
 	            tail = tail.prev;
 	            tail.next = null;
+		        nodeToReturn.get();
 	        } else {
 	        	NodeGeneric<E> current;
 	            if (index < size / 2) {
@@ -83,14 +87,15 @@ public class DSEListGeneric<E> implements ListGeneric {
 	                }
 	            }
 	            current.prev.next = current.next;
-	            current.next.prev = current.prev;
+	            current.next.prev = current.prev;			       
 	        }
 	        size--;
+	       
 	    }
 	
 
 	//returns the index of the String parameter 
-	public int indexOf(String obj) {
+	public int indexOf(Object obj) {
 		NodeGeneric<E> current = head;
 		
 		int index = 0;
@@ -106,13 +111,15 @@ public class DSEListGeneric<E> implements ListGeneric {
 	}
 	
 	//returns item at parameter's index
-	public void get(int index) {
+	public E get(int index) {
         if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException(Integer.toString(index));
         } else {
         NodeGeneric<E> current = head;
         for (int i = 0; i < index; i++) {
         	current = current.next;
         }
+        return current.get();
         }
 	}
 
@@ -122,6 +129,7 @@ public class DSEListGeneric<E> implements ListGeneric {
 		if (current == null) {
 			return true;
 		} else {
+			
 			return false;
 		}
 	}
@@ -134,25 +142,26 @@ public class DSEListGeneric<E> implements ListGeneric {
 	//Take each element of the list a writes them to a string 
 	@Override
 	public String toString() {
-		String output = "";
+		
+		StringBuilder output = new StringBuilder();
 		
 		NodeGeneric<E> current = head;
 		while (current != null) {
-			output = output.concat(current.get());
+			output.append(current.get().toString());
 			if (current.next != null) {
-                output = output.concat(" ");
+                output = output.append(" ");
 			}
             current = current.next;
 		}
-        output = output.concat("");
-        return output;
+        output = output.append("");
+        return output.toString();
     }
 
 
 	//add the parameter item at of the end of the list
-	public boolean add(Object obj) {
+	public boolean add(E obj) {
 		
-        NodeGeneric<E> newNode = new NodeGeneric<>(null, null, obj);
+        NodeGeneric<E> newNode = new NodeGeneric<E>(null, null, obj);
         if (head == null) {
             head = tail = newNode;
         } else {
@@ -165,13 +174,13 @@ public class DSEListGeneric<E> implements ListGeneric {
 	}
 
 	//add item at parameter's index
-	public boolean add(int index, Object obj) {
+	public boolean add(int index, E obj) {
 
 		if (index < 0 || index > size) {
 	        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
 	    }
 		
-	    NodeGeneric<E> newNode = new NodeGeneric(null, null, obj);
+	    NodeGeneric<E> newNode = new NodeGeneric<E>(null, null, obj);
 
 	    if (index == 0) { 
 	        newNode.next = head;
@@ -192,7 +201,7 @@ public class DSEListGeneric<E> implements ListGeneric {
 	            head = newNode;
 	        }
 	    } else { 
-	        Node temp = head;
+	        NodeGeneric<E> temp = head;
 	        for (int i = 0; i < index - 1; i++) {
 	            temp = temp.next;
 	        }
@@ -211,10 +220,43 @@ public class DSEListGeneric<E> implements ListGeneric {
 
 	//searches list for parameter's String return true if found
 	public boolean contains(Object obj) {
-	}
+		NodeGeneric<E> current = head;
+        while (current != null) {
+            if (current.get().equals(obj)) {
+                return true;
+              
+            } else {
+                current = current.next;
+            }
+        }
+        return false;
+    }
 
 	//removes the parameter's item form the list
 	public boolean remove(Object obj) {
+		NodeGeneric<E> current = head;
+		while (current != null) {
+			if (current.get().equals(obj)) {
+				if (current == head) {
+					head = current.next;
+					if (head != null) {
+						head.prev = null;
+					 } 
+				} else if (current == tail) {
+                    tail = current.prev;
+                    if (tail != null) {
+                        tail.next = null;
+                    }
+                } else {
+                    current.next.prev = current.prev;
+                    current.prev.next = current.next;
+                }
+
+                size--;
+                return true;
+            }
+            current = current.next;
+        } return false;
 	}
 	
 	@Override

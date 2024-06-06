@@ -8,6 +8,8 @@ public class ListedCompany {
 	private String name;
 	
 	public void getName() {
+		
+		
 	}
 
 	/**
