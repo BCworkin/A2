@@ -74,6 +74,7 @@ public class Trade implements Comparable<Trade> {
 		
 		this.broker = broker;
 		this.shareQuantity = shareQuantity;
+		this.listedCompanyCode = listedCompanyCode;
 
 	}
 	
@@ -92,6 +93,7 @@ public class Trade implements Comparable<Trade> {
 	 */
 	public int compareTo(Trade t)
 	{
+		
 	}
 	
 

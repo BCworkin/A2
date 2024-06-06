@@ -52,7 +52,10 @@ public class ListedCompany {
 	public float processTrade(int quantity)                          
 	{
 		float percentageIncrease = quantity / 100;
-		float newPrice = (percentageIncrease + 1) * this.currentPrice;
-		return newPrice;
+		this.currentPrice += percentageIncrease;
+		if (this.currentPrice < 1) {
+			this.currentPrice = 1;
+		} 
+		return this.currentPrice;
 	}
 }

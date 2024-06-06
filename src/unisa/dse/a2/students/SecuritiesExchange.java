@@ -95,6 +95,7 @@ public class SecuritiesExchange {
 	 */
 	public int processTradeRound()
 	{
+		
 	}
 	
 	public int runCommandLineExchange(Scanner sc)

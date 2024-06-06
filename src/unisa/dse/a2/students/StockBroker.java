@@ -31,9 +31,7 @@ public class StockBroker {
 	 */
 	public boolean addWatchlist(String companyCode)
 	{
-		if (companyCode != null) {
-			return false;
-		} else if (watchList.contains(companyCode)) {
+		if (watchList.contains(companyCode)) {
 			return false;
 		} else {
 			watchList.add(companyCode);
@@ -69,23 +67,33 @@ public class StockBroker {
 	 */
 	public boolean placeOrder(Trade order)
 	{
-		
+		if (order == null) {
+			return false;
+		} else if (pendingTrades.contains(order)) {
+			return false;
+		} else {
+			pendingTrades.add(order);
+			return true;
+		}
 	}
 	
 	/**
 	 * Gets, removes, and returns the next trade to process
-	 * @return Trade to process
+	 * @return Trade to process\
 	 */
 	public Trade getNextTrade()
 	{
-		
+		Trade tradeToProcess = pendingTrades.poll();
+		return tradeToProcess;
 	}
 	
 	/**
 	 * @return Number of pending trades
 	 */
 	public int getPendingTradeCount()
-	{
+	{			
+		return pendingTrades.size();
+		
 	}
 
 	/**

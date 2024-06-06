@@ -45,15 +45,12 @@ public class DSEListGeneric<E> implements ListGeneric<E> {
 	
 	//Takes a list then adds each element into a new list
 	public DSEListGeneric(DSEListGeneric<E> other) { // Copy constructor. 
-	       if (other == null) {
-	            return;
-	        }
-
+			
 	        NodeGeneric<E> current = other.head;
 	        while (current != null) {
 	            this.add(current.get());
 	            current = current.next;
-	        }
+	        } 
 	}
 
 	//remove and return the item at the parameter's index
@@ -66,13 +63,13 @@ public class DSEListGeneric<E> implements ListGeneric<E> {
 	    	removedNode = head;
 	        head = tail = null;
 	        } else if (index == 0) {
+	        	removedNode = head;
 	            head = head.next;
 	            head.prev = null;
-	            removedNode = head;
-	        } else if (index == size - 1) {
+	        } else if (index == size - 1) {	            
+	        	removedNode = tail;
 	            tail = tail.prev;
 	            tail.next = null;
-	            removedNode = tail;
 	        } else {
 	        	NodeGeneric<E> current;
 	            if (index < size / 2) {
@@ -114,7 +111,7 @@ public class DSEListGeneric<E> implements ListGeneric<E> {
 	//returns item at parameter's index
 	public E get(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(Integer.toString(index));
+            return null;
         } else {
         NodeGeneric<E> current = head;
         for (int i = 0; i < index; i++) {
