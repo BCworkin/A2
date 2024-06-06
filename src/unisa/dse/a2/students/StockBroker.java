@@ -39,6 +39,15 @@ public class StockBroker {
 		}
 	}
 	
+	public boolean tradeInWatchList(String companyCode) {
+		
+		if (watchList.contains(companyCode)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	private String name;
 
 	/**
@@ -83,7 +92,7 @@ public class StockBroker {
 	 */
 	public Trade getNextTrade()
 	{
-		Trade tradeToProcess = pendingTrades.poll();
+		Trade tradeToProcess = pendingTrades.remove();
 		return tradeToProcess;
 	}
 	

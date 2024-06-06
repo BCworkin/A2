@@ -12,7 +12,7 @@ public class Trade implements Comparable<Trade> {
 	/**
 	 * @return Track the moment in time this Trade was created
 	 */
-	public float getCreated()
+	public long getCreated()
 	{
 		return created;
 	}
@@ -93,9 +93,25 @@ public class Trade implements Comparable<Trade> {
 	 */
 	public int compareTo(Trade t)
 	{
-		
+        boolean firstOnWatchList = broker.tradeInWatchList(listedCompanyCode);
+        boolean secondOnWatchlist = t.getStockBroker().tradeInWatchList(t.getCompanyCode());
+
+        if (firstOnWatchList && secondOnWatchlist) {
+            return 0;
+        } else if (firstOnWatchList) {
+            return 1;
+        } else if (secondOnWatchlist) {
+            return -1;
+        } else {
+            if (this.created > this.compareTo(t)) {
+            	return 1;
+            } else if (this.created < t.compareTo(t)) {
+            	return -1;
+            } else if (this.created == t.compareTo(t)){
+            	return 0;
+            }
+        }
 	}
-	
 
 	/***
 	 * Do not modify this toString, it is used for testing purposes
