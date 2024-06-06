@@ -20,6 +20,7 @@ public class StockBroker {
 	 * @return
 	 */
 	public DSEListGeneric<String> getWatchlist() {
+		
 		return new DSEListGeneric<String>(watchList);
 	}
 	
@@ -30,6 +31,14 @@ public class StockBroker {
 	 */
 	public boolean addWatchlist(String companyCode)
 	{
+		if (companyCode != null) {
+			return false;
+		} else if (watchList.contains(companyCode)) {
+			return false;
+		} else {
+			watchList.add(companyCode);
+			return true;
+		}
 	}
 	
 	private String name;
@@ -39,6 +48,8 @@ public class StockBroker {
 	 * @return
 	 */
 	public String getName() {
+		
+		return name
 	}
 	
 	/**
