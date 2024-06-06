@@ -29,7 +29,7 @@ public class ListedCompany {
 	 */
 	private int currentPrice;
 	
-	public void getCurrentPrice() {  
+	public int getCurrentPrice() {  
 		
 		return currentPrice;
 	}
@@ -49,8 +49,10 @@ public class ListedCompany {
 	 * @param quantity
 	 * @return the price after adjustment
 	 */
-	public void processTrade(int quantity)
+	public float processTrade(int quantity)                          
 	{
-		
+		float percentageIncrease = quantity / 100;
+		float newPrice = (percentageIncrease + 1) * this.currentPrice;
+		return newPrice;
 	}
 }

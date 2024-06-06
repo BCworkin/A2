@@ -61,18 +61,18 @@ public class DSEListGeneric<E> implements ListGeneric<E> {
 		if(index  < 0 || index >= size) {
 			throw new IndexOutOfBoundsException(Integer.toString(index));
 		} 
-		NodeGeneric<E> nodeToReturn;
-	    if (size == 1) {
+		NodeGeneric<E> removedNode = null;
+	    if (size == 1) {	        
+	    	removedNode = head;
 	        head = tail = null;
-	        nodeToReturn.get();
 	        } else if (index == 0) {
 	            head = head.next;
 	            head.prev = null;
-		        nodeToReturn.get();
+	            removedNode = head;
 	        } else if (index == size - 1) {
 	            tail = tail.prev;
 	            tail.next = null;
-		        nodeToReturn.get();
+	            removedNode = tail;
 	        } else {
 	        	NodeGeneric<E> current;
 	            if (index < size / 2) {
@@ -86,11 +86,12 @@ public class DSEListGeneric<E> implements ListGeneric<E> {
 	                    current = current.prev;
 	                }
 	            }
+	            removedNode = current;
 	            current.prev.next = current.next;
 	            current.next.prev = current.prev;			       
 	        }
-	        size--;
-	       
+	        size--;	    
+	        return removedNode.get();
 	    }
 	
 

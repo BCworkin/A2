@@ -47,9 +47,9 @@ public class StockBroker {
 	 * Name of the stock brokerage firm
 	 * @return
 	 */
-	public String getName() {
-		
-		return name
+	public String getName() 
+	{
+		return name;
 	}
 	
 	/**
@@ -58,6 +58,8 @@ public class StockBroker {
 	 */
 	public StockBroker(String name)
 	{
+		this.name = name;
+
 	}
 	
 	/**
@@ -67,6 +69,7 @@ public class StockBroker {
 	 */
 	public boolean placeOrder(Trade order)
 	{
+		
 	}
 	
 	/**
@@ -75,6 +78,7 @@ public class StockBroker {
 	 */
 	public Trade getNextTrade()
 	{
+		
 	}
 	
 	/**

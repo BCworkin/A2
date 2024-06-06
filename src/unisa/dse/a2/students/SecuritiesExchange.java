@@ -37,6 +37,10 @@ public class SecuritiesExchange {
 	 */
 	public SecuritiesExchange(String name)
 	{
+		this.name = name;
+		this.brokers = new DSEListGeneric<>();
+		this.announcements = new DSEListGeneric<>();
+		this.companies = new HashMap<>();
 	}
 	
 	/**
@@ -46,6 +50,15 @@ public class SecuritiesExchange {
 	 */
 	public boolean addCompany(ListedCompany company)
 	{
+		if (company == null) {
+			return false;
+		} else if (companies.containsValue(company)) {
+			return false;
+		} else {
+			companies.put(company.getCode(), company);
+			return true;
+		}
+	
 	}
 
 	/**
@@ -54,6 +67,14 @@ public class SecuritiesExchange {
 	 */
 	public boolean addBroker(StockBroker broker)
 	{
+		if (broker == null) {
+			return false;
+		} else if (brokers.contains(broker)) {
+			return false;
+		} else {
+			brokers.add(broker);
+			return true;
+		}
 	}
 	
 	/**
