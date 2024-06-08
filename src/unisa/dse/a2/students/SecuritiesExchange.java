@@ -96,9 +96,10 @@ public class SecuritiesExchange {
 	public int processTradeRound()
 	{
 		for (StockBroker broker: brokers) {
-			
 		}
+		
 	}
+	
 	
 	public int runCommandLineExchange(Scanner sc)
 	{
