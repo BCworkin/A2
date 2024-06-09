@@ -95,10 +95,36 @@ public class SecuritiesExchange {
 	 */
 	public int processTradeRound()
 	{
-		for (StockBroker broker: brokers) {
-		}
+		int successfulTrades = 0;
 		
-	}
+		for (StockBroker broker : brokers) {
+			Trade trade = broker.getNextTrade();
+			
+			if (trade != null) {
+                String companyCode = trade.getCompanyCode();
+
+                try {
+	                if (!companies.containsKey(companyCode)) {
+	                    throw new UntradedCompanyException("Company " + companyCode + " is not listed on this exchange.");
+	                } else {
+		                ListedCompany company = companies.get(companyCode);
+		                int currentTradePrice = company.getCurrentPrice();
+		                String announcement = String.format("Trade: " + trade.getShareQuantity() + trade.getCompanyCode() + " @ " + currentTradePrice + " via " + broker.getName());
+		                announcements.add(announcement);
+		
+		                trade.getCreated();
+		
+		                successfulTrades++;
+	                }
+                } catch (UntradedCompanyException e) {
+                	System.err.println("Company " + companyCode + " is not listed on this exchange.");
+                }
+            }
+        }
+
+        return successfulTrades;
+    }
+		
 	
 	
 	public int runCommandLineExchange(Scanner sc)

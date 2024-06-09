@@ -14,10 +14,11 @@ public class DSEList implements List {
 	public Node tail =  null;
 	private int size;
 	
-	
+	//Empty constructor for DSEList
 	public DSEList() {
 	}
 	
+	// DSEList constructor that accepts a node and sets it as head
 	public DSEList(Node head_) {
 		this.head = head_;
         this.tail = getTail(head_);        
@@ -206,16 +207,16 @@ public class DSEList implements List {
 	            head = newNode;
 	        }
 	    } else { 
-	        Node temp = head;
+	        Node current = head;
 	        for (int i = 0; i < index - 1; i++) {
-	            temp = temp.next;
+	            current = current.next;
 	        }
-	        newNode.next = temp.next;
-	        newNode.prev = temp;
-	        if (temp.next != null) {
-	            temp.next.prev = newNode;
+	        newNode.next = current.next;
+	        newNode.prev = current;
+	        if (current.next != null) {
+	        	current.next.prev = newNode;
 	        }
-	        temp.next = newNode;
+	        current.next = newNode;
 	    }
 
 	    size++;

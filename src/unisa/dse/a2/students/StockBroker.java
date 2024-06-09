@@ -39,6 +39,7 @@ public class StockBroker {
 		}
 	}
 	
+	// Used to check if trade is in the watchlist
 	public boolean tradeInWatchList(String companyCode) {
 		
 		if (watchList.contains(companyCode)) {

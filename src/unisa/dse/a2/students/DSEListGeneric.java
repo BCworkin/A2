@@ -12,9 +12,12 @@ public class DSEListGeneric<E> implements ListGeneric<E> {
 	private NodeGeneric<E> tail;
 	private int size;
 
+	// empty constructor
 	public DSEListGeneric() {
 		
 	}
+	
+	//DSEListGeneric that takes in a NodeGeneric that is type E as a parameter
 	public DSEListGeneric(NodeGeneric<E> head_) {
 		this.head = head_;
         this.tail = getTail(head_);        
@@ -92,7 +95,7 @@ public class DSEListGeneric<E> implements ListGeneric<E> {
 	    }
 	
 
-	//returns the index of the String parameter 
+	//returns the index of the Object parameter 
 	public int indexOf(Object obj) {
 		NodeGeneric<E> current = head;
 		
@@ -156,7 +159,7 @@ public class DSEListGeneric<E> implements ListGeneric<E> {
     }
 
 
-	//add the parameter item at of the end of the list
+	//add the parameter item at the end of the list
 	public boolean add(E obj) {
 		
         NodeGeneric<E> newNode = new NodeGeneric<E>(null, null, obj);
@@ -171,7 +174,7 @@ public class DSEListGeneric<E> implements ListGeneric<E> {
         return true;
 	}
 
-	//add item at parameter's index
+	//add item that is a object at parameter's index
 	public boolean add(int index, E obj) {
 
 		if (index < 0 || index > size) {
